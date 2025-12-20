@@ -75,19 +75,6 @@ body {
     margin:0 3px;
 }
 .btn-yellow:hover { background: #f7b500;}
-.btn-qr {
-    background: #22b368;
-    color: #fff;
-    font-weight: bold;
-    border: none;
-    border-radius: 12px;
-    padding: 11px 18px;
-    font-size: 1.12rem;
-    cursor: pointer;
-    box-shadow: 0 2px 12px #baded955;
-    margin-left: 4px; margin-right:4px;
-}
-.btn-qr:hover {background:#177d43;}
 .ok-btn {
     background: #27ae60;
     font-weight: bold;
@@ -375,23 +362,27 @@ function criarCard(svc, placa, transportadora) {
     document.getElementById('countersArea').appendChild(card);
     const timerEl = card.querySelector('.counter-timer');
     const finalizarBtn = card.querySelector('.btn-finalizar');
-    let segs = 0;
+    // INÍCIO REAL - garante precisão mesmo com abas inativas!
+    const startTime = Date.now();
     card.classList.add('time-green');
     let intervalId = setInterval(()=>{
-        segs++;
-        timerEl.textContent = formatTimer(segs);
+        let delta = Math.floor((Date.now() - startTime) / 1000);
+        timerEl.textContent = formatTimer(delta);
         card.classList.remove('time-green','time-yellow','time-red');
-        if(segs < 900)         card.classList.add("time-green");    // até 15 min
-        else if(segs < 1500)   card.classList.add("time-yellow");   // 15–25 min
-        else                   card.classList.add("time-red");      // >25 min
+        if(delta < 900)         card.classList.add("time-green");
+        else if(delta < 1500)   card.classList.add("time-yellow");
+        else                    card.classList.add("time-red");
     },1000);
     finalizarBtn.addEventListener('click', function(){
         clearInterval(intervalId);
-        timerEl.textContent = formatTimer(segs);
+        let delta = Math.floor((Date.now() - startTime) / 1000);
+        timerEl.textContent = formatTimer(delta);
         finalizarBtn.style.display = "none";
         const dtFim = new Date();
         const horaFinal = getHoraMinSeg(dtFim);
-        adicionarHistorico({svc, placa, transportadora, horaInicio, horaFinal, tempoPercorrido: formatTimer(segs)});
+        adicionarHistorico({
+            svc, placa, transportadora, horaInicio, horaFinal, tempoPercorrido: formatTimer(delta)
+        });
         card.remove();
     });
     cartas.push(card);
