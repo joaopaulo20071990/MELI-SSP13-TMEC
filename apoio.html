@@ -3,7 +3,6 @@
 <head>
   <meta charset="UTF-8">
   <title>Visualização Dispachers</title>
-  <!-- Firebase SDK -->
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
   <style>
@@ -129,6 +128,31 @@
         text-shadow: 1px 2px 6px #fff9, 0 1px 0 #65656517;
         font-family: "Courier New", monospace;
     }
+    .historico-area {display:block; margin:0 auto 32px auto; padding-left:54px; width:96vw; max-width:1100px;}
+    .historico-flexbar {display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;gap:8px;}
+    .historico-title { color: #146ba7; font-size: 1.19rem; font-weight: bold; letter-spacing: 0.5px; margin-bottom:0;}
+    .btn-historico-csv {
+        background: #22b368;
+        color: #fff;
+        font-weight: bold;
+        border: none;
+        border-radius: 13px;
+        padding: 13px 36px;
+        font-size: 1.13rem;
+        box-shadow: 0 2px 6px #65cf9d5b;
+        cursor: pointer;
+        transition: background .15s;
+    }
+    .btn-historico-csv:hover {background: #177d43;}
+    table.historico-table { width: 100%; border-collapse: collapse; background: #f7fbfd; border-radius: 14px; overflow: hidden; font-size: 1.09em;}
+    table.historico-table th, table.historico-table td {
+        border-bottom: 1px solid #cce3f7;
+        text-align: center;
+        padding: 11px 7px;
+    }
+    table.historico-table th { background: #e6f2fc; color: #2176b8; font-weight: bold; padding: 16px 5px; font-size: 1.06rem; border-bottom: 2.2px solid #3aa6d1;}
+    table.historico-table tr:nth-child(even) td { background: #f3f7fd;}
+    table.historico-table tr:last-child td { border-bottom: none; }
   </style>
 </head>
 <body>
@@ -150,6 +174,27 @@
     </div>
 </div>
 <div class="counters-area" id="countersArea"></div>
+
+<div class="historico-area" id="historicoArea" style="display:block;">
+    <div class="historico-flexbar">
+        <div class="historico-title">Histórico de Finalizados</div>
+        <button class="btn-historico-csv" id="btnBaixarCSV">Baixar Histórico</button>
+    </div>
+    <table class="historico-table" id="historicoTable">
+        <thead>
+            <tr>
+                <th>SVC</th>
+                <th>Placa</th>
+                <th>Transportadora</th>
+                <th>Hora início</th>
+                <th>Hora final</th>
+                <th>Tempo percorrido</th>
+            </tr>
+        </thead>
+        <tbody id="historicoTbody"></tbody>
+    </table>
+</div>
+
 <script>
 const firebaseConfig = {
   apiKey: "AIzaSyAL2cbdQsvM6S0HbAytGsNE3YQjpStBbD8",
@@ -178,6 +223,7 @@ function formatTimer(s) {
     return `${h}:${m}:${sec}`;
 }
 
+// ---------- LISTA CONTADORES ATIVOS ----------
 function renderContadoresOnline(data){
     const area = document.getElementById('countersArea');
     area.innerHTML = '';
@@ -198,14 +244,13 @@ function renderContadoresOnline(data){
         card.setAttribute('data-svc', info.svc.toLowerCase());
         area.appendChild(card);
 
-        // Cronômetro calculado pelo horário de início (NUNCA trava)
         function segundosDesde(hhmmss) {
             const [h,m,s] = hhmmss.split(":").map(Number);
             const agora = new Date();
             const segsAgora = agora.getHours()*3600 + agora.getMinutes()*60 + agora.getSeconds();
             const segsIni = h*3600 + m*60 + s;
             let delta = segsAgora-segsIni;
-            if(delta<0) delta+=86400; // passou da meia-noite
+            if(delta<0) delta+=86400;
             return delta;
         }
         const timerEl = card.querySelector('.counter-timer');
@@ -228,7 +273,29 @@ db.ref('contadoresAtivos').on('value', snap => {
     renderContadoresOnline(snap.val());
 });
 
-// Filtros
+// ---------- HISTÓRICO FINALIZADOS ----------
+db.ref('historicoFinalizados').on('value', snap => {
+    renderHistoricoOnline(snap.val());
+});
+
+function renderHistoricoOnline(data) {
+    let tbody = document.getElementById('historicoTbody');
+    tbody.innerHTML = '';
+    if (data) {
+        Object.values(data).forEach(obj => {
+            const tr = document.createElement('tr');
+            tr.innerHTML = `<td>${obj.svc}</td>
+               <td>${obj.placa}</td>
+               <td>${obj.transportadora}</td>
+               <td>${obj.horaInicio}</td>
+               <td>${obj.horaFinal}</td>
+               <td>${obj.tempoPercorrido}</td>`;
+            tbody.appendChild(tr);
+        });
+    }
+}
+
+// ---------- FILTROS ----------
 document.getElementById('filtroTransportadora').addEventListener('change', aplicarFiltro);
 document.getElementById('filtroSVC').addEventListener('input', aplicarFiltro);
 
@@ -241,6 +308,32 @@ function aplicarFiltro() {
         card.style.display = (okTrans && okSvc)?'':'none';
     });
 }
+
+// --------- BAIXAR HISTÓRICO EM CSV ----------
+document.getElementById('btnBaixarCSV').addEventListener('click', function() {
+    let csv = 'SVC,Placa,Transportadora,Hora início,Hora final,Tempo percorrido\n';
+    const linhas = document.querySelectorAll('#historicoTbody tr');
+    if (linhas.length === 0) {
+        alert('Nenhum registro no histórico!');
+        return;
+    }
+    linhas.forEach(tr => {
+        const tds = tr.querySelectorAll('td');
+        let row = [];
+        tds.forEach(td => {
+            let texto = td.textContent.replace(/"/g,'""').replace(/\n/g, ' ').replace(/,/g, ' ');
+            row.push('"' + texto + '"');
+        });
+        csv += row.join(',') + '\n';
+    });
+    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+    const link = document.createElement("a");
+    link.href = URL.createObjectURL(blob);
+    link.download = "historico_finalizados.csv";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+});
 </script>
 </body>
 </html>
