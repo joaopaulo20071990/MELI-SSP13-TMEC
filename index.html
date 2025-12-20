@@ -4,7 +4,6 @@
 <meta charset="UTF-8">
 <title>TMEC - MERCADO LIVRE</title>
 <style>
-/* ...SEU CSS PADRÃO, igual às versões anteriores... */
 body {
     background: #f5f8fd;
     font-family: 'Segoe UI', Arial, sans-serif;
@@ -23,13 +22,189 @@ body {
     box-shadow: 0 2px 12px #e4c57066;
     margin-bottom: 0;
 }
-/* ...demais estilos iguais ao layout anterior (cortei para foco no JS/Firebase)... */
+.top-bar {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 36px 0 16px 0;
+    gap: 16px;
+    flex-wrap: wrap;
+    background: #f5f8fd;
+}
+.filtros-bloco {
+    display: flex; align-items: center; gap: 10px;
+    background: #fff7;
+    border-radius: 16px;
+    padding: 10px 22px;
+    box-shadow: 0 2px 6px #fce88d2b;
+    margin-right: 10px;
+}
+.filtro-label {
+    color: #2176b8;
+    font-weight: 600;
+    font-size: 1.15rem;
+}
+.filter-select, .filter-svc {
+    border-radius: 13px;
+    border: none;
+    background: #f7fbfd;
+    color: #24515a;
+    padding: 8px 16px;
+    font-size: 1.13rem;
+    font-weight: 500;
+    box-shadow: 0 2px 5px #e2eef4ab;
+}
+.filter-svc::placeholder { color: #b0b0b0; font-weight: normal; }
+.campo-qr {
+    width: 210px; font-size: 1.12rem; border-radius: 13px; padding: 11px 14px;
+    border: 1.5px solid #d8eefa; background: #fafdfe; color: #293647;
+    transition: border .14s;
+}
+.campo-qr:focus {outline:none; border-color: #1e85d1;}
+.btn-yellow {
+    background: #fcc831;
+    color: white;
+    border: none;
+    padding: 13px 34px;
+    border-radius: 13px;
+    font-size: 1.19rem;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0px 4px 16px #ecd36244;
+    transition: background .18s;
+    margin:0 7px;
+}
+.btn-yellow:hover { background: #f7b500;}
+.ok-btn {
+    background: #27ae60;
+    font-weight: bold;
+    color: #fff;
+    border: none;
+    border-radius: 12px;
+    font-size: 1.15em;
+    padding: 12px 23px;
+    box-shadow: 0 2px 12px #8adbaf55;
+    cursor:pointer;
+    margin-left: 4px;
+}
+.ok-btn:hover { background:#158140; }
+.counters-area {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 36px;
+    min-height: 90px;
+    margin-bottom: 58px;
+    padding: 16px 38px 0 38px;
+}
+.counter-card {
+    min-width: 370px; max-width: 380px;
+    padding: 23px 28px 92px 28px;
+    border-radius: 24px;
+    box-sizing: border-box;
+    display: flex; flex-direction: column; position: relative;
+    margin-bottom: 12px;
+    box-shadow: 0 7px 32px #e0f6ff29;
+    border: 3px dashed #31a1cc;
+    background: #e6f2fc;
+    transition: background 0.6s, border-color .3s;
+}
+.counter-card.time-green {
+    border-color: #31d378;
+    background: #e6faec;
+}
+.counter-card.time-yellow {
+    border-color: #ffe174;
+    background: #fffbe6;
+}
+.counter-card.time-red {
+    border-color: #ef6d6d;
+    background: #ffeaea;
+}
+.counter-card label {
+    color: #2176b8;
+    font-weight: 600;
+    font-size: 1.16rem;
+    margin-top: 9px;
+    margin-bottom: 2.5px;
+    display: block;
+}
+.counter-card label:first-child {margin-top:0;}
+.card-svc, .card-placa {
+    background: #222c32;
+    color: #fff;
+    font-weight: bold;
+    padding: 14px 13px 13px 16px;
+    border-radius: 10px;
+    width: 100%;
+    font-size: 1.32em;
+    margin-bottom: 11px;
+    box-shadow:0 2px 9px #2a2c3042;
+    letter-spacing: 0.19em;
+    border: none;
+    text-shadow: 0 2px 5px #000a;
+    font-family: "Segoe UI", "Arial Black", Arial, sans-serif;
+}
+.card-placa {margin-bottom: 19px;}
+.counter-transport label { color: #1976d2; font-size:1.08em;}
+.counter-transport span { color: #30679e; font-weight: 500; font-size: 1.06rem; display: block; margin-top: 2px; margin-bottom: 0;}
+.inicio-quadro label {color: #2176b8; font-weight: bold; font-size: 1.09em; margin-bottom: 2px;}
+.inicio-hora { color: #1976d2; margin-left: 8px; font-weight: bold; font-size: 1.12rem; font-family: monospace;}
 .counter-timer {
-    position: absolute; right: 32px; bottom: 75px; font-size: 1.43rem;
+    position: absolute; right: 32px; bottom: 75px; font-size: 1.41rem;
     color: #2260a8; font-weight: bold; letter-spacing: 2px; text-align: right;
     text-shadow: 1px 2px 6px #fff9, 0 1px 0 #65656517;
     font-family: "Courier New", monospace;
 }
+.btn-finalizar {
+    position: absolute; right: 34px; bottom: 24px; background: #ea4e4e;
+    color: #fff; border: none; border-radius: 13px;
+    padding: 14px 35px; font-size: 1.19rem; font-weight: bold; cursor: pointer;
+    box-shadow: 0 4px 24px #cf323233, 0 2px 4px #99999944;
+    transition: background 0.16s,box-shadow .18s;
+    z-index: 2;
+}
+.btn-finalizar:hover { background: #b82929; }
+.historico-area {
+    margin: 0 auto 32px auto;
+    padding-left: 54px;
+    width: 96vw;
+    max-width: 1100px;
+}
+.historico-flexbar {
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin-bottom:12px;
+    gap:8px;
+}
+.historico-title { color: #146ba7; font-size: 1.19rem; margin-bottom: 0px; font-weight: bold; letter-spacing: 0.5px; }
+.btn-historico-csv {
+    background: #22b368;
+    color: #fff;
+    font-weight: bold;
+    border: none;
+    border-radius: 13px;
+    padding: 13px 36px;
+    font-size: 1.13rem;
+    box-shadow: 0 2px 6px #65cf9d5b;
+    cursor: pointer;
+    transition: background .15s;
+}
+.btn-historico-csv:hover {background: #177d43;}
+table.historico-table { width: 100%; border-collapse: collapse; background: #f7fbfd; border-radius: 14px; overflow: hidden; font-size: 1.09em;}
+table.historico-table th, table.historico-table td {
+    border-bottom: 1px solid #cce3f7;
+    text-align: center;
+    padding: 11px 7px;
+}
+table.historico-table th { background: #e6f2fc; color: #2176b8; font-weight: bold; padding: 16px 5px; font-size: 1.06rem; border-bottom: 2.2px solid #3aa6d1;}
+table.historico-table tr:nth-child(even) td { background: #f3f7fd;}
+table.historico-table tr:last-child td { border-bottom: none; }
 </style>
 <!-- Firebase SDKs -->
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
@@ -239,7 +414,7 @@ function mostrarPopup() {
 function fecharPopup() {
     document.getElementById('popupBg').classList.remove('popup-show');
 }
-// ...BAIXAR CSV permanece igual...
+// DOWNLOAD CSV DO HISTÓRICO
 document.getElementById('btnBaixarCSV').addEventListener('click', function() {
     let csv = 'SVC,Placa,Transportadora,Hora início,Hora final,Tempo percorrido\n';
     const linhas = document.querySelectorAll('#historicoTbody tr');
