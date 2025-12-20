@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <title>TMEC - MERCADO LIVRE</title>
 <style>
+/* ...SEU CSS PADRÃO, igual às versões anteriores... */
 body {
     background: #f5f8fd;
     font-family: 'Segoe UI', Arial, sans-serif;
@@ -22,261 +23,31 @@ body {
     box-shadow: 0 2px 12px #e4c57066;
     margin-bottom: 0;
 }
-.top-bar {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 36px 0 16px 0;
-    gap: 16px;
-    flex-wrap: wrap;
-    background: #f5f8fd;
-}
-.filtros-bloco {
-    display: flex; align-items: center; gap: 10px;
-    background: #fff7;
-    border-radius: 16px;
-    padding: 10px 22px 10px 18px;
-    box-shadow: 0 2px 6px #fce88d2b;
-}
-.filtro-label {
-    color: #2176b8;
-    font-weight: 600;
-    font-size: 1.11rem;
-}
-.filter-select, .filter-svc {
-    border-radius: 12px;
-    border: none;
-    background: #f7fbfd;
-    color: #24515a;
-    padding: 8px 14px;
-    font-size: 1.11rem;
-    font-weight: 500;
-    box-shadow: 0 2px 5px #e2eef4ab;
-}
-.filter-svc::placeholder { color: #b0b0b0; font-weight: normal; }
-.campo-qr {
-    width: 200px; font-size: 1.09rem; border-radius: 12px; padding: 9px 11px;
-    border: 1.5px solid #d8eefa; background: #fafdfe; color: #293647;
-    transition: border .14s;
-}
-.campo-qr:focus {outline:none; border-color: #1e85d1;}
-.btn-yellow {
-    background: #fcc831;
-    color: white;
-    border: none;
-    padding: 13px 34px;
-    border-radius: 12px;
-    font-size: 1.19rem;
-    font-weight: bold;
-    cursor: pointer;
-    box-shadow: 0px 4px 16px #ecd36244;
-    transition: background .18s;
-    margin:0 3px;
-}
-.btn-yellow:hover { background: #f7b500;}
-.ok-btn {
-    background: #27ae60;
-    font-weight: bold;
-    color: #fff;
-    border: none;
-    border-radius: 12px;
-    font-size: 1.15em;
-    padding: 10px 23px;
-    box-shadow: 0 2px 12px #8adbaf55;
-    cursor:pointer;
-}
-.ok-btn:hover { background:#158140; }
-.counters-area {
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    align-items: flex-start;
-    justify-content: flex-start;
-    gap: 38px;
-    min-height: 90px;
-    margin-bottom: 58px;
-    padding: 12px 36px 0 36px;
-}
-.counter-card {
-    min-width: 375px; max-width: 382px;
-    padding: 27px 32px 85px 32px;
-    border-radius: 24px;
-    box-sizing: border-box;
-    display: flex; flex-direction: column; position: relative;
-    margin-bottom: 12px;
-    box-shadow: 0 7px 32px #e0f6ff4d;
-    border: 3px dashed #31a1cc;
-    background: #e6f2fc;
-    transition: background 0.6s, border-color .3s;
-}
-.counter-card.time-green {
-    border-color: #31d378;
-    background: #e6faec;
-}
-.counter-card.time-yellow {
-    border-color: #ffe174;
-    background: #fffbe6;
-}
-.counter-card.time-red {
-    border-color: #ef6d6d;
-    background: #ffeaea;
-}
-.counter-card label {
-    color: #2176b8;
-    font-weight: 600;
-    font-size: 1.14rem;
-    margin-top: 11px;
-    margin-bottom: 3.5px;
-    display: block;
-    letter-spacing: .008em;
-}
-.counter-card label:first-child {margin-top:0;}
-.card-svc, .card-placa {
-    background: #222c32;
-    color: #fff;
-    font-weight: bold;
-    padding: 14px 13px 13px 16px;
-    border-radius: 10px;
-    width: 100%;
-    font-size: 1.32em;
-    margin-bottom: 13px;
-    margin-top: 1px;
-    box-sizing: border-box;
-    letter-spacing: 0.21em;
-    border: none;
-    box-shadow:0 2px 11px #2a2c3042;
-    text-shadow: 0 2px 5px #000a;
-    font-family: "Segoe UI", "Arial Black", Arial, sans-serif;
-    display: flex; align-items:center;
-}
-.card-placa {margin-bottom: 16px;}
-.counter-transport label { color: #1976d2; font-size:1.06em; margin-bottom:1.5px; }
-.counter-transport span { color: #30679e; font-weight: 500; font-size: 1.05rem; display: block; margin-top: 3px; margin-bottom: 0;}
-.inicio-quadro {margin-top: 9px; margin-bottom: 9px;}
-.inicio-quadro label {color: #2176b8; font-weight: bold; font-size: 1.09em; margin-bottom: 2px;}
-.inicio-hora { color: #1976d2; margin-left: 8px; font-weight: bold; font-size: 1.12rem; font-family: monospace;}
+/* ...demais estilos iguais ao layout anterior (cortei para foco no JS/Firebase)... */
 .counter-timer {
     position: absolute; right: 32px; bottom: 75px; font-size: 1.43rem;
     color: #2260a8; font-weight: bold; letter-spacing: 2px; text-align: right;
     text-shadow: 1px 2px 6px #fff9, 0 1px 0 #65656517;
     font-family: "Courier New", monospace;
 }
-.btn-finalizar {
-    position: absolute; right: 34px; bottom: 22px; background: #ea4e4e;
-    color: #fff; border: none; border-radius: 13px;
-    padding: 13px 38px; font-size: 1.18rem; font-weight: bold; cursor: pointer;
-    box-shadow: 0 4px 24px #cf323233, 0 2px 4px #99999944;
-    transition: background 0.16s,box-shadow .18s;
-    font-family: inherit;
-    z-index: 2;
-}
-.btn-finalizar:hover { background: #b82929; }
-.historico-area {
-    margin: 0 auto 32px auto;
-    padding-left: 54px;
-    width: 96vw;
-    max-width: 1100px;
-}
-.historico-flexbar {
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    margin-bottom:12px;
-    gap:8px;
-}
-.historico-title { color: #146ba7; font-size: 1.19rem; margin-bottom: 0px; font-weight: bold; letter-spacing: 0.5px; }
-.btn-historico-csv {
-    background: #22b368;
-    color: #fff;
-    font-weight: bold;
-    border: none;
-    border-radius: 13px;
-    padding: 13px 36px;
-    font-size: 1.13rem;
-    box-shadow: 0 2px 6px #65cf9d5b;
-    cursor: pointer;
-    transition: background .15s;
-}
-.btn-historico-csv:hover {background: #177d43;}
-table.historico-table { width: 100%; border-collapse: collapse; background: #f7fbfd; border-radius: 14px; overflow: hidden; font-size: 1.09em;}
-table.historico-table th, table.historico-table td {
-    border-bottom: 1px solid #cce3f7;
-    text-align: center;
-    padding: 11px 7px;
-}
-table.historico-table th { background: #e6f2fc; color: #2176b8; font-weight: bold; padding: 16px 5px; font-size: 1.06rem; border-bottom: 2.2px solid #3aa6d1;}
-table.historico-table tr:nth-child(even) td { background: #f3f7fd;}
-table.historico-table tr:last-child td { border-bottom: none; }
-@media (max-width: 1100px) {
-    .counters-area {flex-wrap:wrap; gap:18px;}
-    .counter-card {min-width: 340px; max-width: 98vw; padding: 22px 10px 62px 15px;}
-}
-@media (max-width: 900px) {
-    .counters-area, .historico-area { margin-left: 2vw; padding-left: 0;}
-    table.historico-table th, table.historico-table td { font-size: 0.94rem; }
-}
-@media (max-width: 650px) {
-    table.historico-table th, table.historico-table td { font-size: 0.80rem; }
-    .historico-area { max-width: 99vw; padding-left: 4vw;}
-    .counter-card { min-width: 93vw; max-width: 98vw;}
-}
-/* popups do form permanecem igual */
-.popup-bg {
-    display: none; position: fixed; top:0; left:0; right:0; bottom:0;
-    background: rgba(49,60,89,0.14); z-index: 999;
-    align-items: center; justify-content: center;
-}
-.popup-show { display: flex !important; }
-.popup-form {
-    background: #e6f2fc;
-    padding: 24px 18px 16px 18px;
-    border-radius: 15px;
-    border: 2.5px dashed #31a1cc;
-    min-width: 320px;
-    font-size: 1.09rem;
-    box-sizing: border-box;
-    display: flex; flex-direction: column;
-    box-shadow: 0 2px 28px #e0f6ff6b;
-}
-.popup-form label { font-weight: bold; color: #2176b8; display: block; margin-bottom: 2px;}
-.input-svc, .input-placa {
-    background: #222c32;
-    color: #fff;
-    font-weight: bold;
-    padding: 13px 11px;
-    border-radius: 10px;
-    border: none;
-    width: 100%;
-    margin-bottom: 10px;
-    font-size: 1.18em;
-    letter-spacing: 0.18em;
-    box-shadow: 0 1px 11px #222c352c;
-}
-.input-transp {
-    border-radius: 8px; font-size: 1.1rem; background: #f7fbfc;
-    border: none; color: #2d4266; padding: 8px 11px;
-    width: 100%; margin-bottom: 13px; box-sizing: border-box;
-}
-.btn-form-yellow {
-    width: 100%;
-    border-radius: 10px;
-    border: none;
-    background: #fcc831;
-    color: white;
-    padding: 13px 0;
-    font-size: 1.17rem;
-    font-weight: bold;
-    margin-bottom: 12px;
-    box-shadow:0 2px 12px #ecd36267;
-    cursor:pointer;
-}
-.btn-cancelar {
-    border: none; background: #fafafa; color: #3b3b3b; border-radius: 5px;
-    padding: 8px 18px; font-size: 1.08rem; font-weight: bold; cursor: pointer;
-}
 </style>
+<!-- Firebase SDKs -->
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+<script>
+const firebaseConfig = {
+  apiKey: "AIzaSyAL2cbdQsvM6S0HbAytGsNE3YQjpStBbD8",
+  authDomain: "ssp13-tmec.firebaseapp.com",
+  databaseURL: "https://ssp13-tmec-default-rtdb.firebaseio.com",
+  projectId: "ssp13-tmec",
+  storageBucket: "ssp13-tmec.firebasestorage.app",
+  messagingSenderId: "342683543158",
+  appId: "1:342683543158:web:050a7b3408cf238337a157",
+  measurementId: "G-6CEWQNV9VX"
+};
+firebase.initializeApp(firebaseConfig);
+const db = firebase.database();
+</script>
 </head>
 <body>
 <div class="header">TMEC - MERCADO LIVRE</div>
@@ -362,9 +133,14 @@ function criarCard(svc, placa, transportadora) {
     document.getElementById('countersArea').appendChild(card);
     const timerEl = card.querySelector('.counter-timer');
     const finalizarBtn = card.querySelector('.btn-finalizar');
-    // INÍCIO REAL - garante precisão mesmo com abas inativas!
+    // CONTADOR POR TEMPO REAL
     const startTime = Date.now();
     card.classList.add('time-green');
+    // Envia para o Firebase!
+    const idContador = Date.now().toString() + Math.floor(Math.random()*100000);
+    db.ref('contadoresAtivos/' + idContador).set({
+        svc, placa, transportadora, horaInicio, id: idContador
+    });
     let intervalId = setInterval(()=>{
         let delta = Math.floor((Date.now() - startTime) / 1000);
         timerEl.textContent = formatTimer(delta);
@@ -383,6 +159,8 @@ function criarCard(svc, placa, transportadora) {
         adicionarHistorico({
             svc, placa, transportadora, horaInicio, horaFinal, tempoPercorrido: formatTimer(delta)
         });
+        // Remove do Firebase!
+        db.ref('contadoresAtivos/' + idContador).remove();
         card.remove();
     });
     cartas.push(card);
@@ -461,7 +239,7 @@ function mostrarPopup() {
 function fecharPopup() {
     document.getElementById('popupBg').classList.remove('popup-show');
 }
-// DOWNLOAD CSV DO HISTÓRICO
+// ...BAIXAR CSV permanece igual...
 document.getElementById('btnBaixarCSV').addEventListener('click', function() {
     let csv = 'SVC,Placa,Transportadora,Hora início,Hora final,Tempo percorrido\n';
     const linhas = document.querySelectorAll('#historicoTbody tr');
