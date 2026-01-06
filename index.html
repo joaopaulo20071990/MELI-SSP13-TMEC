@@ -1,148 +1,302 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-  <meta charset="UTF-8">
-  <title>Visualização Dispachers</title>
-  <!-- Firebase SDK -->
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
-  <style>
-    body {
-      background: #f5f8fd;
-      font-family: 'Segoe UI', Arial, sans-serif;
-      margin: 0;
-    }
-    .header {
-      background: #fcc831;
-      width: 100%;
-      padding: 35px 0 32px 0;
-      font-size: 2.3rem;
-      font-weight: bold;
-      text-align: center;
-      letter-spacing: 2px;
-      color: #fff;
-      text-shadow: 1px 2px 8px #c9a70d56;
-      box-shadow: 0 2px 12px #e4c57066;
-      margin-bottom: 0;
-    }
-    .top-bar {
-      width: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 36px 0 16px 0;
-      gap: 16px;
-      flex-wrap: wrap;
-    }
-    .filtros-bloco {
-      display: flex; align-items: center; gap: 10px;
-      background: #fff7;
-      border-radius: 16px;
-      padding: 10px 22px;
-      box-shadow: 0 2px 6px #fce88d2b;
-      margin-right: 10px;
-    }
-    .filtro-label {
-      color: #2176b8;
-      font-weight: 600;
-      font-size: 1.15rem;
-    }
-    .filter-select, .filter-svc {
-      border-radius: 13px;
-      border: none;
-      background: #f7fbfd;
-      color: #24515a;
-      padding: 8px 16px;
-      font-size: 1.13rem;
-      font-weight: 500;
-      box-shadow: 0 2px 5px #e2eef4ab;
-    }
-    .filter-svc::placeholder { color: #b0b0b0; font-weight: normal; }
-
-    .counters-area {
-      width: 100%;
-      display: flex;
-      flex-direction: row;
-      flex-wrap: wrap;
-      align-items: flex-start;
-      justify-content: flex-start;
-      gap: 36px;
-      min-height: 90px;
-      margin-bottom: 58px;
-      padding: 16px 38px 0 38px;
-    }
-    .counter-card {
-      min-width: 370px; max-width: 380px;
-      padding: 23px 28px 92px 28px;
-      border-radius: 24px;
-      box-sizing: border-box;
-      display: flex;
-      flex-direction: column;
-      position: relative;
-      margin-bottom: 12px;
-      box-shadow: 0 7px 32px #e0f6ff29;
-      border: 3px dashed #31a1cc;
-      background: #e6f2fc;
-      transition: background 0.6s, border-color .3s;
-    }
-    .counter-card.time-green {
-      border-color: #31d378;
-      background: #e6faec;
-    }
-    .counter-card.time-yellow {
-      border-color: #ffe174;
-      background: #fffbe6;
-    }
-    .counter-card.time-red {
-      border-color: #ef6d6d;
-      background: #ffeaea;
-    }
-    .counter-card label {
-      color: #2176b8;
-      font-weight: 600;
-      font-size: 1.16rem;
-      margin-top: 9px;
-      margin-bottom: 2.5px;
-      display: block;
-    }
-    .counter-card label:first-child {margin-top:0;}
-    .card-svc, .card-placa {
-      background: #222c32;
-      color: #fff;
-      font-weight: bold;
-      border-radius: 10px;
-      width: 100%;
-      font-size: 1.23em;
-      padding: 12px 16px 12px 16px;
-      margin-bottom: 13px;
-      margin-top: 0;
-      box-sizing: border-box;
-      letter-spacing: 0.19em;
-      border: none;
-      text-shadow: 0 1px 3px #0007;
-      display: flex;
-      align-items: center;
-      justify-content: flex-start;
-    }
-    .card-placa {margin-bottom: 19px;}
-    .counter-transport label { color: #1976d2; font-size:1.08em;}
-    .counter-transport span { color: #30679e; font-weight: 500; font-size: 1.06rem; display: block; margin-top: 2px; margin-bottom: 0;}
-    .inicio-quadro label {color: #2176b8; font-weight: bold; font-size: 1.09em; margin-bottom: 2px;}
-    .inicio-hora { color: #1976d2; margin-left: 8px; font-weight: bold; font-size: 1.12rem; font-family: monospace;}
-    .counter-timer {
-      position: absolute; right: 32px; bottom: 75px; font-size: 1.41rem;
-      color: #2260a8; font-weight: bold; letter-spacing: 2px; text-align: right;
-      text-shadow: 1px 2px 6px #fff9, 0 1px 0 #65656517;
-      font-family: "Courier New", monospace;
-    }
-  </style>
+    <meta charset="UTF-8">
+    <title>TMEC - MERCADO LIVRE</title>
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+    <style>
+        body {
+            background: #f5f8fd;
+            font-family: 'Segoe UI', Arial, sans-serif;
+            margin: 0;
+        }
+        .header {
+            background: #fcc831;
+            width: 100%;
+            padding: 35px 0 32px 0;
+            font-size: 2.3rem;
+            font-weight: bold;
+            text-align: center;
+            letter-spacing: 2px;
+            color: #fff;
+            text-shadow: 1px 2px 8px #c9a70d56;
+            box-shadow: 0 2px 12px #e4c57066;
+            margin-bottom: 0;
+        }
+        .sub-header {
+            font-size: 1.4rem;
+            background: #1976d2;
+            color: #fff;
+            margin-bottom: 18px;
+            text-align: center;
+            padding: 18px 0 10px 0;
+            font-weight: bold;
+            letter-spacing: 1px;
+            border-bottom-left-radius: 15px;
+            border-bottom-right-radius: 15px;
+        }
+        .top-bar {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 36px 0 16px 0;
+            gap: 16px;
+            flex-wrap: wrap;
+            width: 100%;
+        }
+        .filtros-bloco {
+            display: flex; align-items: center; gap: 10px;
+            background: #fff7;
+            border-radius: 16px;
+            padding: 10px 22px;
+            box-shadow: 0 2px 6px #fce88d2b;
+            margin-right: 10px;
+        }
+        .filtro-label { color: #2176b8; font-weight: 600; font-size: 1.15rem;}
+        .filter-select, .filter-svc {
+            border-radius: 13px;
+            border: none;
+            background: #f7fbfd;
+            color: #24515a;
+            padding: 8px 16px;
+            font-size: 1.13rem;
+            font-weight: 500;
+            box-shadow: 0 2px 5px #e2eef4ab;
+        }
+        .campo-qr {
+            width: 210px;
+            font-size: 1.12rem;
+            border-radius: 13px;
+            padding: 11px 14px;
+            border: 1.5px solid #d8eefa;
+            background: #fafdfe;
+            color: #293647;
+            transition: border .14s;
+        }
+        .campo-qr:focus {outline:none; border-color: #1e85d1;}
+        .btn-yellow {
+            background: #fcc831;
+            color: white;
+            border: none;
+            padding: 13px 34px;
+            border-radius: 13px;
+            font-size: 1.19rem;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0px 4px 16px #ecd36244;
+            transition: background .18s;
+            margin: 0 7px;
+        }
+        .btn-yellow:hover { background: #f7b500;}
+        .ok-btn {
+            background: #27ae60;
+            font-weight: bold;
+            color: #fff;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.15em;
+            padding: 12px 23px;
+            box-shadow: 0 2px 12px #8adbaf55;
+            cursor:pointer;
+            margin-left: 4px;
+        }
+        .ok-btn:hover { background:#158140; }
+        .counters-area {
+            width: 100%;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 36px;
+            min-height: 90px;
+            margin-bottom: 58px;
+            padding: 16px 38px 0 38px;
+        }
+        .counter-card {
+            min-width: 340px;
+            max-width: 380px;
+            width: 100%;
+            padding: 23px 28px 92px 28px;
+            border-radius: 24px;
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            margin-bottom: 12px;
+            box-shadow: 0 7px 32px #e0f6ff29;
+            border: 3px dashed #31a1cc;
+            background: #e6f2fc;
+            transition: background 0.6s, border-color .3s;
+        }
+        .counter-card.time-green {
+            border-color: #31d378;
+            background: #e6faec;
+        }
+        .counter-card.time-yellow {
+            border-color: #ffe174;
+            background: #fffbe6;
+        }
+        .counter-card.time-red {
+            border-color: #ef6d6d;
+            background: #ffeaea;
+        }
+        .counter-card label {
+            color: #2176b8;
+            font-weight: 600;
+            font-size: 1.16rem;
+            margin-top: 9px;
+            margin-bottom: 2.5px;
+            display: block;
+        }
+        .counter-card label:first-child {margin-top:0;}
+        .card-svc, .card-placa {
+            background: #222c32;
+            color: #fff;
+            font-weight: bold;
+            padding: 14px 13px 13px 16px;
+            border-radius: 10px;
+            width: 100%;
+            font-size: 1.22em;
+            margin-bottom: 11px;
+            letter-spacing: 0.19em;
+            border: none;
+            text-shadow: 0 1px 3px #0007;
+            font-family: "Segoe UI", "Arial Black", Arial, sans-serif;
+        }
+        .card-placa {margin-bottom: 19px;}
+        .counter-transport label { color: #1976d2; font-size:1.08em;}
+        .counter-transport span { color: #30679e; font-weight: 500; font-size: 1.06rem; display: block; margin-top: 2px; margin-bottom: 0;}
+        .inicio-quadro label {color: #2176b8; font-weight: bold; font-size: 1.09em; margin-bottom: 2px;}
+        .inicio-hora { color: #1976d2; margin-left: 8px; font-weight: bold; font-size: 1.12rem; font-family: monospace;}
+        .counter-timer {
+            position: absolute;
+            right: 32px; bottom: 75px; font-size: 1.41rem;
+            color: #2260a8; font-weight: bold; letter-spacing: 2px; text-align: right;
+            text-shadow: 1px 2px 6px #fff9, 0 1px 0 #65656517;
+            font-family: "Courier New", monospace;
+        }
+        .btn-finalizar {
+            position: absolute; right: 34px; bottom: 24px; background: #ea4e4e;
+            color: #fff; border: none; border-radius: 13px;
+            padding: 14px 35px; font-size: 1.19rem; font-weight: bold; cursor: pointer;
+            box-shadow: 0 4px 24px #cf323233, 0 2px 4px #99999944;
+            transition: background 0.16s,box-shadow .18s;
+            z-index: 2;
+        }
+        .btn-finalizar:hover { background: #b82929; }
+        .historico-area {
+            display:block; margin:0 auto 32px auto;
+            padding-left:54px;width:96vw;max-width:1100px;
+        }
+        .historico-flexbar {
+            display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;gap:8px;
+        }
+        .historico-title { color: #146ba7; font-size: 1.19rem; margin-bottom: 0px; font-weight: bold; letter-spacing: 0.5px; }
+        .btn-historico-csv {
+            background: #22b368;
+            color: #fff;
+            font-weight: bold;
+            border: none;
+            border-radius: 13px;
+            padding: 13px 36px;
+            font-size: 1.13rem;
+            box-shadow: 0 2px 6px #65cf9d5b;
+            cursor: pointer;
+            transition: background .15s;
+        }
+        .btn-historico-csv:hover {background: #177d43;}
+        table.historico-table { width: 100%; border-collapse: collapse; background: #f7fbfd; border-radius: 14px; overflow: hidden; font-size: 1.09em;}
+        table.historico-table th, table.historico-table td {
+            border-bottom: 1px solid #cce3f7;
+            text-align: center;
+            padding: 11px 7px;
+        }
+        table.historico-table th { background: #e6f2fc; color: #2176b8; font-weight: bold; padding: 16px 5px; font-size: 1.06rem; border-bottom: 2.2px solid #3aa6d1;}
+        table.historico-table tr:nth-child(even) td { background: #f3f7fd;}
+        table.historico-table tr:last-child td { border-bottom: none; }
+        /* --- CENTRALIZAÇÃO DO POPUP --- */
+        .popup-bg {
+            display: none;
+            position: fixed;
+            top:0; left:0; right:0; bottom:0;
+            background: rgba(49,60,89,0.18);
+            z-index: 9999;
+            align-items: center;
+            justify-content: center;
+            transition: background .17s;
+        }
+        .popup-show { display: flex !important; }
+        .popup-form {
+            background: #e6f2fc;
+            padding: 36px 30px 24px 30px;
+            border-radius: 22px;
+            border: 2.5px dashed #31a1cc;
+            min-width: 320px;
+            font-size: 1.09rem;
+            box-sizing: border-box;
+            display: flex; flex-direction: column;
+            box-shadow: 0 2px 28px #e0f6ffcc;
+            align-items: flex-start;
+        }
+        .popup-form label { font-weight: bold; color: #2176b8; display: block; margin-bottom: 2px;}
+        .input-svc, .input-placa {
+            background: #222c32;
+            color: #fff;
+            font-weight: bold;
+            padding: 13px 11px;
+            border-radius: 10px;
+            border: none;
+            width: 100%;
+            margin-bottom: 10px;
+            font-size: 1.18em;
+            letter-spacing: 0.18em;
+            box-shadow: 0 1px 11px #222c352c;
+        }
+        .input-transp {
+            border-radius: 8px; font-size: 1.1rem; background: #f7fbfc;
+            border: none; color: #2d4266; padding: 8px 11px;
+            width: 100%; margin-bottom: 13px; box-sizing: border-box;
+        }
+        .btn-form-yellow {
+            width: 100%;
+            border-radius: 10px;
+            border: none;
+            background: #fcc831;
+            color: white;
+            padding: 13px 0;
+            font-size: 1.17rem;
+            font-weight: bold;
+            margin-bottom: 12px;
+            box-shadow:0 2px 12px #ecd36267;
+            cursor:pointer;
+        }
+        .btn-form-yellow:hover {background:#e9b300;}
+        .btn-cancelar {
+            border: none; background: #fafafa; color: #3b3b3b; border-radius: 5px;
+            padding: 8px 18px; font-size: 1.08rem; font-weight: bold; cursor: pointer;
+        }
+        .btn-cancelar:hover {background:#e8e8e8;}
+        @media (max-width:900px) {
+            .counter-card { min-width:80vw; max-width: 95vw; width:100vw; }
+            .counters-area { padding:0 5vw; gap: 24px;}
+            .historico-area {padding-left:0;}
+        }
+        @media (max-width:600px) {
+            .sub-header {font-size:1rem; padding:10px 0;}
+            .header {font-size:1.3rem;}
+            .filtros-bloco {flex-direction: column; align-items: flex-start;}
+            .top-bar {gap:7px;}
+        }
+    </style>
 </head>
 <body>
-<div class="header">VISUALIZAÇÃO DISPACHERS</div>
+<div class="header">TMEC - MERCADO LIVRE</div>
+<div class="sub-header">VISUALIZAÇÃO DISPACHERS</div>
 <div class="top-bar">
     <div class="filtros-bloco">
         <span class="filtro-label">Transportadora:</span>
-        <select class="filter-select" id="filtroTransportadora">
+        <select id="filtroTransportadora" class="filter-select">
             <option value="">Todas</option>
             <option>ALC</option>
             <option>MURICI</option>
@@ -154,9 +308,59 @@
         <span class="filtro-label">SVC:</span>
         <input class="filter-svc" id="filtroSVC" placeholder="Digite o SVC">
     </div>
+    <button class="btn-yellow" id="novoContador">Novo Contador</button>
+    <input type="text" id="inputQrManual" class="campo-qr" placeholder="Cole SVC;PLACA;TRANSPORT." autocomplete="off">
+    <button class="ok-btn" id="enviarQrManual">OK</button>
 </div>
 <div class="counters-area" id="countersArea"></div>
+
+<!-- Histórico Finalizados -->
+<div class="historico-area" id="historicoArea" style="display:none;">
+    <div class="historico-flexbar">
+        <div class="historico-title">Histórico de Finalizados</div>
+        <button class="btn-historico-csv" id="btnBaixarCSV">Baixar Histórico</button>
+    </div>
+    <table class="historico-table" id="historicoTable">
+        <thead>
+            <tr>
+                <th>SVC</th>
+                <th>Placa</th>
+                <th>Transportadora</th>
+                <th>Hora início</th>
+                <th>Hora final</th>
+                <th>Tempo percorrido</th>
+            </tr>
+        </thead>
+        <tbody id="historicoTbody"></tbody>
+    </table>
+</div>
+<!-- POPUP CENTRALIZADO -->
+<div class="popup-bg" id="popupBg">
+    <form class="popup-form" id="formEntrada" autocomplete="off" onsubmit="return false">
+        <label for="formSVC">SVC:</label>
+        <input class="input-svc" id="formSVC" placeholder="Digite o SVC" required>
+        <label for="formPlaca">Placa:</label>
+        <input class="input-placa" id="formPlaca" placeholder="Digite a placa" required>
+        <label for="formTransportadora">Transportadora:</label>
+        <select class="input-transp" id="formTransportadora" required>
+            <option value="">Selecione</option>
+            <option>ALC</option>
+            <option>MURICI</option>
+            <option>TORRES</option>
+            <option>UNICA</option>
+            <option>KANGU</option>
+            <option>BLD</option>
+        </select>
+        <button class="btn-form-yellow" id="btnRegistrar">Registrar Entrada</button>
+        <button class="btn-cancelar" id="btnCancelar" type="button">Cancelar</button>
+    </form>
+</div>
 <script>
+function getHoraMinSeg(dt) {
+    return String(dt.getHours()).padStart(2,'0') + ":" +
+           String(dt.getMinutes()).padStart(2,'0') + ":" +
+           String(dt.getSeconds()).padStart(2,'0');
+}
 const firebaseConfig = {
   apiKey: "AIzaSyAL2cbdQsvM6S0HbAytGsNE3YQjpStBbD8",
   authDomain: "ssp13-tmec.firebaseapp.com",
@@ -179,13 +383,15 @@ function formatTimer(s) {
     return `${h}:${m}:${sec}`;
 }
 
+// ---- CONTADORES ATIVOS ONLINE (FIREBASE) ----
 function renderContadoresOnline(data){
     const area = document.getElementById('countersArea');
     area.innerHTML = '';
     cartas = {};
-    for(const [id,info] of Object.entries(data||{})){
-        let card = document.createElement('div');
-        card.className = 'counter-card time-green';
+    if (!data) return;
+    Object.entries(data).forEach(([id, info]) => {
+        const card = document.createElement('div');
+        card.className = 'counter-card';
         card.innerHTML = `
             <label>SVC:</label>
             <div class="card-svc">${info.svc}</div>
@@ -194,6 +400,7 @@ function renderContadoresOnline(data){
             <div class="counter-transport"><label>Transportadora:</label><span>${info.transportadora}</span></div>
             <div class="inicio-quadro"><label>Início:</label><span class="inicio-hora">${info.horaInicio}</span></div>
             <div class="counter-timer" id="timer${id}">00:00:00</div>
+            <button class="btn-finalizar">Finalizar</button>
         `;
         card.setAttribute('data-transportadora', info.transportadora);
         card.setAttribute('data-svc', info.svc.toLowerCase());
@@ -202,45 +409,153 @@ function renderContadoresOnline(data){
         function segundosDesde(hhmmss) {
             const [h,m,s] = hhmmss.split(":").map(Number);
             const agora = new Date();
-            const segsAgora = agora.getHours()*3600 + agora.getMinutes()*60 + agora.getSeconds();
-            const segsIni = h*3600 + m*60 + s;
-            let delta = segsAgora-segsIni;
-            if(delta<0) delta+=86400; // passou da meia-noite
-            return delta;
+            return Math.floor(
+                agora.getHours()*3600+agora.getMinutes()*60+agora.getSeconds() -
+                (h*3600 + m*60 + s)
+            );
         }
-        const timerEl = card.querySelector('.counter-timer');
-        function updateTimer(){
-            let segs = segundosDesde(info.horaInicio);
-            timerEl.textContent = formatTimer(segs);
-            card.classList.remove('time-green','time-yellow','time-red');
-            if(segs < 900) card.classList.add('time-green');
-            else if(segs < 1500) card.classList.add('time-yellow');
+
+        function updateTimer() {
+            let s = segundosDesde(info.horaInicio);
+            if (s < 0) s = 0;
+            card.querySelector(`#timer${id}`).textContent = formatTimer(s);
+            card.classList.remove('time-green', 'time-yellow', 'time-red');
+            if (s < 30*60) card.classList.add('time-green');
+            else if (s < 60*60) card.classList.add('time-yellow');
             else card.classList.add('time-red');
         }
         updateTimer();
-        setInterval(updateTimer,1000);
+        const interval = setInterval(updateTimer,1000);
+
+        card.querySelector('.btn-finalizar').addEventListener('click',function(){
+            clearInterval(interval);
+            this.style.display = "none";
+            let segs = segundosDesde(info.horaInicio);
+            const dtFim = new Date();
+            const horaFinal = getHoraMinSeg(dtFim);
+            adicionarHistorico({
+                svc: info.svc,
+                placa: info.placa,
+                transportadora: info.transportadora,
+                horaInicio: info.horaInicio,
+                horaFinal,
+                tempoPercorrido: formatTimer(segs)
+            });
+            db.ref('contadoresAtivos/' + id).remove();
+            card.remove();
+        });
         cartas[id] = card;
-    }
+    });
     aplicarFiltro();
 }
 
+// OBS: listener realtime
 db.ref('contadoresAtivos').on('value', snap => {
     renderContadoresOnline(snap.val());
 });
 
+// ------ CADASTRO DE NOVO CONTADOR (envia pro banco) ------
+document.getElementById('btnRegistrar').addEventListener('click', function(e){
+    e.preventDefault();
+    const svc = document.getElementById('formSVC').value.trim();
+    const placa = document.getElementById('formPlaca').value.trim();
+    const transportadora = document.getElementById('formTransportadora').value;
+    if(!svc || !placa || !transportadora) { alert("Preencha todos os campos!"); return; }
+    const dtInicio = new Date();
+    const horaInicio = getHoraMinSeg(dtInicio);
+    const idContador = Date.now().toString() + Math.floor(Math.random()*100000);
+    db.ref('contadoresAtivos/' + idContador).set({
+        svc, placa, transportadora, horaInicio, id: idContador
+    });
+    fecharPopup();
+});
+document.getElementById('novoContador').addEventListener('click', mostrarPopup);
+document.getElementById('btnCancelar').addEventListener('click', fecharPopup);
+
+document.getElementById("inputQrManual").addEventListener("keydown", function(e){
+    if(e.key==="Enter"){ e.preventDefault(); processarManualQR(); }
+});
+document.getElementById("enviarQrManual").addEventListener("click", processarManualQR);
+
+function processarManualQR(){
+    let val = document.getElementById("inputQrManual").value.trim();
+    if(!val.includes(";")){
+        alert("O padrão deve ser: SVC;PLACA;TRANSPORTADORA");
+        return;
+    }
+    let [svc, placa, transportadora] = val.split(";").map(x=>x.trim());
+    const validas = ["ALC","MURICI","TORRES","UNICA","KANGU","BLD"];
+    if(!svc || !placa || !transportadora || !validas.includes(transportadora.toUpperCase())) {
+        alert("Dados inválidos!");
+        return;
+    }
+    const dtInicio = new Date();
+    const horaInicio = getHoraMinSeg(dtInicio);
+    const idContador = Date.now().toString() + Math.floor(Math.random()*100000);
+    db.ref('contadoresAtivos/' + idContador).set({
+        svc, placa, transportadora: transportadora.toUpperCase(), horaInicio, id: idContador
+    });
+    document.getElementById("inputQrManual").value = "";
+}
 // Filtros
 document.getElementById('filtroTransportadora').addEventListener('change', aplicarFiltro);
 document.getElementById('filtroSVC').addEventListener('input', aplicarFiltro);
 
 function aplicarFiltro() {
     const trans = document.getElementById('filtroTransportadora').value;
-    const svc = document.getElementById('filtroSVC').value.trim().toLowerCase();
-    Object.values(cartas).forEach(card=>{
-        let okTrans = !trans || card.getAttribute('data-transportadora')===trans;
-        let okSvc = !svc || card.getAttribute('data-svc').includes(svc);
+    const svc = document.getElementById('filtroSVC').value.toLowerCase().trim();
+    Object.values(cartas).forEach(card => {
+        const okTrans = !trans || card.getAttribute('data-transportadora').toUpperCase() === trans.toUpperCase();
+        const okSvc = !svc || card.getAttribute('data-svc').includes(svc);
         card.style.display = (okTrans && okSvc)?'':'none';
     });
 }
+
+function mostrarPopup() {
+    document.getElementById('popupBg').classList.add('popup-show');
+    document.getElementById('formEntrada').reset();
+    setTimeout(() => document.getElementById('formSVC').focus(), 100);
+}
+function fecharPopup() {
+    document.getElementById('popupBg').classList.remove('popup-show');
+}
+
+// -------- HISTÓRICO FINALIZADOS + CSV ----------
+function adicionarHistorico(obj) {
+    document.getElementById('historicoArea').style.display = '';
+    const tr = document.createElement('tr');
+    tr.innerHTML = `<td>${obj.svc}</td>
+       <td>${obj.placa}</td>
+       <td>${obj.transportadora}</td>
+       <td>${obj.horaInicio}</td>
+       <td>${obj.horaFinal}</td>
+       <td>${obj.tempoPercorrido}</td>`;
+    document.getElementById('historicoTbody').appendChild(tr);
+}
+document.getElementById('btnBaixarCSV').addEventListener('click', function() {
+    let csv = 'SVC,Placa,Transportadora,Hora início,Hora final,Tempo percorrido\n';
+    const linhas = document.querySelectorAll('#historicoTbody tr');
+    if (linhas.length === 0) {
+        alert('Nenhum registro no histórico!');
+        return;
+    }
+    linhas.forEach(tr => {
+        const tds = tr.querySelectorAll('td');
+        let row = [];
+        tds.forEach(td => {
+            let texto = td.textContent.replace(/"/g,'""').replace(/\n/g, ' ').replace(/,/g, ' ');
+            row.push('"' + texto + '"');
+        });
+        csv += row.join(',') + '\n';
+    });
+    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+    const link = document.createElement("a");
+    link.href = URL.createObjectURL(blob);
+    link.download = "historico_finalizados.csv";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+});
 </script>
 </body>
 </html>
